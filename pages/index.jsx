@@ -2,25 +2,27 @@
 import { useState } from "react";
 
 export default function Home() {
-  const tables = [
-    { id: "VIP 1", x: 50, y: 100 },
-    { id: "VIP 2", x: 150, y: 100 },
-    { id: "VIP 3", x: 250, y: 100 },
-    { id: "ULTRA VIP", x: 350, y: 100 },
-    { id: "Table 1", x: 50, y: 200 },
-    { id: "Table 2", x: 150, y: 200 },
-    { id: "Table 3", x: 250, y: 200 },
-    { id: "Table 4", x: 350, y: 200 },
-    { id: "Table 5", x: 50, y: 300 },
-    { id: "Table 6", x: 150, y: 300 },
-    { id: "Table 7", x: 250, y: 300 },
-    { id: "Table 8", x: 350, y: 300 },
-    { id: "Table 9", x: 50, y: 400 },
-    { id: "Table 10", x: 150, y: 400 },
-    { id: "Table 11", x: 250, y: 400 },
-    { id: "Table 12", x: 350, y: 400 },
-    { id: "Table 13", x: 450, y: 400 },
-  ];
+ const tables = [
+  { id: "VIP 1", x: 150, y: 120 },
+  { id: "VIP 2", x: 150, y: 380 },
+  { id: "VIP 3", x: 150, y: 850 },
+  { id: "ULTRA VIP", x: 60, y: 370 },
+
+  { id: "Table 1", x: 300, y: 930 },
+  { id: "Table 2", x: 300, y: 740 },
+  { id: "Table 3", x: 300, y: 520 },
+
+  { id: "Table 4", x: 650, y: 930 },
+  { id: "Table 5", x: 520, y: 650 },
+  { id: "Table 6", x: 650, y: 200 },
+  { id: "Table 7", x: 780, y: 930 },
+  { id: "Table 8", x: 780, y: 650 },
+  { id: "Table 9", x: 420, y: 200 },
+  { id: "Table 10", x: 780, y: 200 },
+  { id: "Table 11", x: 920, y: 200 },
+  { id: "Table 12", x: 1100, y: 450 },
+  { id: "Table 13", x: 1100, y: 800 },
+];
 
   const [status, setStatus] = useState({}); // {id: {reserved: bool, name: string, people: string}}
 
