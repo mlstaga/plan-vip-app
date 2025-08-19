@@ -1,30 +1,29 @@
-
 import { useState } from "react";
 
 export default function Home() {
- const tables = [
-  { id: "VIP 1", x: 150, y: 120 },
-  { id: "VIP 2", x: 150, y: 380 },
-  { id: "VIP 3", x: 150, y: 850 },
-  { id: "ULTRA VIP", x: 60, y: 370 },
+  const tables = [
+    { id: "VIP 1", x: 150, y: 120 },
+    { id: "VIP 2", x: 150, y: 380 },
+    { id: "VIP 3", x: 150, y: 850 },
+    { id: "ULTRA VIP", x: 60, y: 370 },
 
-  { id: "Table 1", x: 300, y: 930 },
-  { id: "Table 2", x: 300, y: 740 },
-  { id: "Table 3", x: 300, y: 520 },
+    { id: "Table 1", x: 300, y: 930 },
+    { id: "Table 2", x: 300, y: 740 },
+    { id: "Table 3", x: 300, y: 520 },
 
-  { id: "Table 4", x: 650, y: 930 },
-  { id: "Table 5", x: 520, y: 650 },
-  { id: "Table 6", x: 650, y: 200 },
-  { id: "Table 7", x: 780, y: 930 },
-  { id: "Table 8", x: 780, y: 650 },
-  { id: "Table 9", x: 420, y: 200 },
-  { id: "Table 10", x: 780, y: 200 },
-  { id: "Table 11", x: 920, y: 200 },
-  { id: "Table 12", x: 1100, y: 450 },
-  { id: "Table 13", x: 1100, y: 800 },
-];
+    { id: "Table 4", x: 650, y: 930 },
+    { id: "Table 5", x: 520, y: 650 },
+    { id: "Table 6", x: 650, y: 200 },
+    { id: "Table 7", x: 780, y: 930 },
+    { id: "Table 8", x: 780, y: 650 },
+    { id: "Table 9", x: 420, y: 200 },
+    { id: "Table 10", x: 780, y: 200 },
+    { id: "Table 11", x: 920, y: 200 },
+    { id: "Table 12", x: 1100, y: 450 },
+    { id: "Table 13", x: 1100, y: 800 },
+  ];
 
-  const [status, setStatus] = useState({}); // {id: {reserved: bool, name: string, people: string}}
+  const [status, setStatus] = useState({});
 
   const toggleTable = (id) => {
     const cur = status[id];
@@ -35,81 +34,60 @@ export default function Home() {
       if (people === null) return;
       setStatus((s) => ({ ...s, [id]: { reserved: true, name, people } }));
     } else {
-      // Unreserve
       setStatus((s) => ({ ...s, [id]: { reserved: false, name: "", people: "" } }));
     }
   };
 
   return (
-    <div style={styles.page}>
-      <h1 style={styles.title}>Plan VIP — Réservations</h1>
-      <div style={styles.legend}>
-        <span style={{...styles.badge, background: "#4ade80"}} /> Dispo
-        <span style={{width: 16}} />
-        <span style={{...styles.badge, background: "#f87171"}} /> Réservé
+    <div style={{ fontFamily: "sans-serif", padding: 20 }}>
+      <h1>Plan VIP — Réservations</h1>
+      <div style={{ display: "flex", gap: 20, marginBottom: 10 }}>
+        <span style={{ display: "flex", alignItems: "center", gap: 5 }}>
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#4ade80", border: "1px solid #333" }} />
+          Dispo
+        </span>
+        <span style={{ display: "flex", alignItems: "center", gap: 5 }}>
+          <span style={{ width: 14, height: 14, borderRadius: "50%", background: "#f87171", border: "1px solid #333" }} />
+          Réservé
+        </span>
       </div>
-      <div style={styles.stage}>
-        <img src="/plan-salle.jpg" alt="Plan de salle" style={styles.plan} />
+
+      <div style={{ position: "relative", width: 1284, height: 1035, border: "1px solid #ccc" }}>
+        <img
+          src="/plan-salle.jpg"
+          alt="Plan de salle"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }}
+        />
         {tables.map((t) => (
           <div
             key={t.id}
             onClick={() => toggleTable(t.id)}
-            title={t.id}
             style={{
-              ...styles.table,
+              position: "absolute",
               top: t.y,
               left: t.x,
+              width: 40,
+              height: 40,
+              borderRadius: "50%",
               background: status[t.id]?.reserved ? "#f87171" : "#4ade80",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 9,
+              fontWeight: "bold",
+              cursor: "pointer",
+              border: "1px solid #333",
+              transform: "translate(-50%, -50%)", // centre sur les coords
             }}
           >
-            <div style={styles.tableLabel}>{t.id}</div>
-            {status[t.id]?.reserved && (
-              <div style={styles.tooltip}>
-                {status[t.id].name} ({status[t.id].people})
-              </div>
-            )}
+            {t.id}
           </div>
         ))}
       </div>
-      <p style={styles.hint}>Astuce : reclique sur une table pour la remettre en « Dispo ».</p>
+
+      <p style={{ fontSize: 12, color: "#666", marginTop: 10 }}>
+        Astuce : reclique sur une table pour la remettre en « Dispo ».
+      </p>
     </div>
   );
 }
-
-const styles = {
-  page: { fontFamily: "system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial", padding: 20 },
-  title: { margin: "0 0 10px 0" },
-  legend: { display: "flex", alignItems: "center", gap: 6, marginBottom: 10 },
-  badge: { display: "inline-block", width: 16, height: 16, borderRadius: 9999, border: "1px solid #00000022" },
-  stage: { position: "relative", width: 700, height: 500, border: "1px solid #ddd", borderRadius: 8, overflow: "hidden", background: "#f6f6f6" },
-  plan: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.95 },
-  table: {
-    position: "absolute",
-    width: 70,
-    height: 70,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: 11,
-    fontWeight: 700,
-    cursor: "pointer",
-    borderRadius: 9999,
-    border: "1px solid #00000033",
-    userSelect: "none",
-    boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-  },
-  tableLabel: { padding: 6, textAlign: "center" },
-  tooltip: {
-    position: "absolute",
-    top: 76,
-    left: -4,
-    background: "white",
-    border: "1px solid #e5e7eb",
-    borderRadius: 6,
-    padding: "4px 6px",
-    fontSize: 11,
-    boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-    whiteSpace: "nowrap",
-  },
-  hint: { fontSize: 12, color: "#666", marginTop: 10 }
-};
